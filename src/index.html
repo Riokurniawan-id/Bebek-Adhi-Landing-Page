@@ -376,18 +376,18 @@
 
 
       document.addEventListener("DOMContentLoaded", function() {
-       // Ambil semua video yang memiliki atribut data-src
+       
        const videos = document.querySelectorAll("video[data-src]");
 
-       // Buat observer untuk mendeteksi ketika video masuk ke viewport
+       
        const videoObserver = new IntersectionObserver((entries, observer) => {
            entries.forEach(entry => {
-               if (entry.isIntersecting) {  // Ketika video terlihat
+               if (entry.isIntersecting) {  
                    const video = entry.target;
-                   video.src = video.getAttribute("data-src");  // Setel src dari data-src
-                   video.load();  // Muat video
-                   video.play();  // Mulai pemutaran
-                   observer.unobserve(video);  // Hentikan observasi untuk video ini
+                   video.src = video.getAttribute("data-src");  
+                   video.load();  
+                   video.play();  
+                   observer.unobserve(video);  
                }
            });
        });
