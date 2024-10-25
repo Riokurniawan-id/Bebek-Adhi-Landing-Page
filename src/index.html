@@ -306,7 +306,7 @@
       id="Contact"
     >
       <div class="md:w-[522px] rounded-2xl overflow-hidden">
-        <video src="assets/Duck-Stock-Footage.mp4" autoplay loop muted></video>
+        <video data-src="assets/Duck-Stock-Footage.mp4" preload="none" autoplay loop muted></video>
       </div>
       <div class="text-center xl:text-left">
         <h1 class="text-lime-600 font-bold text-lg">NIKMATI KUALITAS</h1>
@@ -373,6 +373,28 @@
           var whatsappUrl = "https://wa.me/" + phoneNumber + "?text=" + whatsappMessage;
           window.open(whatsappUrl, "_blank");
       });
+
+
+      document.addEventListener("DOMContentLoaded", function() {
+       // Ambil semua video yang memiliki atribut data-src
+       const videos = document.querySelectorAll("video[data-src]");
+
+       // Buat observer untuk mendeteksi ketika video masuk ke viewport
+       const videoObserver = new IntersectionObserver((entries, observer) => {
+           entries.forEach(entry => {
+               if (entry.isIntersecting) {  // Ketika video terlihat
+                   const video = entry.target;
+                   video.src = video.getAttribute("data-src");  // Setel src dari data-src
+                   video.load();  // Muat video
+                   video.play();  // Mulai pemutaran
+                   observer.unobserve(video);  // Hentikan observasi untuk video ini
+               }
+           });
+       });
+
+       // Observasi setiap video dengan data-src
+       videos.forEach(video => videoObserver.observe(video));
+   });
   </script>
   </body>
 </html>
